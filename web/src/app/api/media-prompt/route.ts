@@ -34,7 +34,10 @@ Given an image, or a sequence of frames sampled in order from a video, you rever
 - Recommend 3-5 platforms that best fit THIS content (realism, stylization, motion complexity, people/avatars, audio needs).
   Candidates include Google Veo, OpenAI Sora, Runway, Kling, Luma Dream Machine, Hailuo/MiniMax, Pika, Higgsfield, HeyGen/Synthesia (avatars),
   Midjourney, Ideogram, Flux, Leonardo, Adobe Firefly, CapCut (editing). Prefer what you genuinely judge best; don't invent features or prices.
-- If the media shows a real, identifiable person, do not write prompts to impersonate them; describe a similar but generic character instead.
+- Similar is the goal: match the style, composition, camera work, lighting, pacing and mood as closely as you can.
+  If the media shows a real, identifiable person, describe a similar-looking generic character (age range, look, outfit, vibe)
+  instead of naming or impersonating them. Replace other brands' logos/text with neutral placeholders the user can fill in.
+- similar_variations: 3 ready-to-use prompts with the same look and feel, each changing one thing.
 - Steps should cover the full workflow: generating stills/keyframes if useful, animating, upscaling, audio and editing.`;
 
 export async function POST(req: Request) {

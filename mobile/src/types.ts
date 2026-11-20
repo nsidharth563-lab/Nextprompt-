@@ -5,6 +5,7 @@ export interface MediaPromptResult {
   breakdown: Record<string, string>;
   master_prompt: string;
   negative_prompt: string;
+  similar_variations: { title: string; prompt: string }[];
   platforms: {
     name: string;
     website: string;

@@ -157,6 +157,17 @@ function MediaResult({ r }: { r: MediaPromptResult }) {
       <PromptBox title="Master prompt" text={r.master_prompt} />
       <PromptBox title="Negative prompt" text={r.negative_prompt} />
 
+      {r.similar_variations.length > 0 && (
+        <>
+          <h2 className="pt-2 text-xl font-semibold">Similar variations</h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            {r.similar_variations.map((v) => (
+              <PromptBox key={v.title} title={v.title} text={v.prompt} />
+            ))}
+          </div>
+        </>
+      )}
+
       <h2 className="pt-2 text-xl font-semibold">Best platforms to make it</h2>
       <div className="space-y-4">
         {r.platforms.map((p, i) => (

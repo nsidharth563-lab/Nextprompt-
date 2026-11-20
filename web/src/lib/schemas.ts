@@ -18,6 +18,9 @@ export const MediaPromptSchema = z.object({
   }),
   master_prompt: z.string().describe("A detailed, platform-neutral prompt to recreate this"),
   negative_prompt: z.string(),
+  similar_variations: z
+    .array(z.object({ title: z.string(), prompt: z.string() }))
+    .describe("3 prompts that keep the same look and feel but change one thing (subject, setting, season, product...)"),
   platforms: z
     .array(
       z.object({

@@ -113,6 +113,13 @@ export function CreateScreen() {
           <View style={{ height: 10 }} />
           <PromptBox title="Negative prompt" text={r.negative_prompt} />
           <View style={{ height: 14 }} />
+          {r.similar_variations.length > 0 && <H>Similar variations</H>}
+          {r.similar_variations.map((v) => (
+            <View key={v.title} style={{ marginTop: 8 }}>
+              <PromptBox title={v.title} text={v.prompt} />
+            </View>
+          ))}
+          <View style={{ height: 14 }} />
           <H>Best platforms</H>
           <View style={{ height: 8 }} />
           {r.platforms.map((p, i) => (
