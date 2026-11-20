@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: #07070c;
+  color: #e9e9f1;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.card {
+  @apply rounded-2xl border border-white/10 bg-white/[0.03] p-5;
+}
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-5 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/20 transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50;
+}
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded-xl border border-white/15 px-4 py-2 text-sm text-white/80 transition hover:bg-white/5;
+}
+.input {
+  @apply w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-fuchsia-400;
+}
+.label {
+  @apply mb-2 block text-xs font-semibold uppercase tracking-wider text-white/50;
+}
