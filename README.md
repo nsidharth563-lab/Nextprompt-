@@ -18,7 +18,9 @@ web/      Next.js 15 site + API routes (the SaaS backend)
   src/lib/fingerprints.ts    deterministic AI-builder / CMS / framework signals
   src/lib/safeFetch.ts       SSRF-safe fetcher (blocks private IPs, re-checks redirects, size/time caps)
   src/lib/claude.ts          Claude structured-output call (Zod schemas in schemas.ts)
-mobile/   Expo (SDK 58) React Native app for iOS + Android, calls the web API
+mobile/   NextPrompt iOS + Android app (Expo SDK 58, Expo Router), calls the web API
+  store/    App Store + Google Play listing kit: texts, privacy answers, screenshots
+  README.md step-by-step build & publish guide
 ```
 
 ## How it works
@@ -46,8 +48,8 @@ npm install && npx expo start           # scan the QR code with Expo Go
 ## Deploy
 
 - **Web/API:** Vercel (zero-config for Next.js). Add `ANTHROPIC_API_KEY` as an env var.
-- **Mobile:** `npx eas-cli@latest build -p all` then `eas submit` to the App Store / Play Store. Set
-  `EXPO_PUBLIC_API_URL` to the production web URL.
+- **Mobile:** follow `mobile/README.md` (EAS build + submit) and paste the store texts from `mobile/store/LISTING.md`.
+- The web app also serves `/privacy` and `/terms`, which both app stores require.
 
 ## Roadmap to a full SaaS
 

@@ -3,16 +3,19 @@ import * as VideoThumbnails from "expo-video-thumbnails";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import type { Frame } from "./types";
 
-// Point this at your deployed web app (e.g. https://nextprompt.vercel.app).
-// For local dev on a device, use your computer's LAN IP, e.g. http://192.168.1.20:3000
-export const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3000";
+import { API_URL } from "./config";
 
 export async function postJson<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(body),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${API_URL}${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    throw new Error("Can't reach NextPrompt. Check your internet connection and try again.");
+  }
   const json = await res.json().catch(() => ({ error: "Unexpected server response." }));
   if (!res.ok) throw new Error(json.error ?? "Request failed.");
   return json as T;
@@ -50,8 +53,14 @@ export async function assetToFrames(asset: ImagePicker.ImagePickerAsset): Promis
 }
 
 export async function pickMedia(): Promise<ImagePicker.ImagePickerAsset | null> {
-  const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  if (!perm.granted) throw new Error("Allow photo library access to pick media.");
+  // The system photo picker needs no library permission on iOS 14+ / Android 13+.
   const res = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["images", "videos"], quality: 1 });
+  return res.canceled ? null : res.assets[0];
+}
+
+export async function takePhoto(): Promise<ImagePicker.ImagePickerAsset | null> {
+  const perm = await ImagePicker.requestCameraPermissionsAsync();
+  if (!perm.granted) throw new Error("Allow camera access in Settings to take a photo.");
+  const res = await ImagePicker.launchCameraAsync({ mediaTypes: ["images"], quality: 1 });
   return res.canceled ? null : res.assets[0];
 }

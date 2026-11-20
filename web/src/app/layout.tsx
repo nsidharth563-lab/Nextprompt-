@@ -32,7 +32,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </header>
         <main className="mx-auto max-w-6xl px-4 pb-24">{children}</main>
         <footer className="mx-auto max-w-6xl px-4 py-10 text-xs text-white/40">
-          AI detection is an estimate based on public signals, never proof. © {new Date().getFullYear()} NextPrompt
+          <div className="flex flex-wrap gap-4">
+            <span>AI detection is an estimate based on public signals, never proof. © {new Date().getFullYear()} NextPrompt</span>
+            <Link href="/privacy" className="hover:text-white">Privacy</Link>
+            <Link href="/terms" className="hover:text-white">Terms</Link>
+          </div>
         </footer>
       </body>
     </html>
